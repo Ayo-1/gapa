@@ -1,0 +1,451 @@
+<%- include("header_auth") %>
+<style>
+            .widget-author {
+              margin-bottom: 58px;
+            }
+            .author-card {
+              position: relative;
+              padding-bottom: 10px;
+              background-color: #f7cd3a;
+              margin-bottom: 15px;
+              box-shadow: 0 12px 20px 1px rgba(64, 64, 64, .09);
+              border-radius: 10px;
+            }
+            .author-card .author-card-cover {
+              position: relative;
+              width: 100%;
+              height: 40px;
+              background-position: center;
+              background-repeat: no-repeat;
+              background-size: cover;
+            }
+            .author-card .author-card-cover::after {
+              display: block;
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              content: '';
+              opacity: 0.5;
+            }
+            .author-card .author-card-cover > .btn {
+              position: absolute;
+              top: 12px;
+              right: 12px;
+              padding: 0 10px;
+            }
+            .author-card .author-card-profile {
+              display: table;
+              position: relative;
+              margin-top: -22px;
+              padding-right: 15px;
+              padding-bottom: 16px;
+              padding-left: 20px;
+              z-index: 5;
+            }
+            .author-card .author-card-profile .author-card-avatar, .author-card .author-card-profile .author-card-details {
+              display: table-cell;
+              vertical-align: middle;
+            }
+            .author-card .author-card-profile .author-card-avatar {
+              width: 100px;
+              border-radius: 50%;
+              box-shadow: 0 8px 20px 0 rgba(0, 0, 0, .15);
+              overflow: hidden;
+            }
+            .author-card .author-card-profile .author-card-avatar > img {
+              display: block;
+              width: 100%;
+            }
+            .author-card .author-card-profile .author-card-details {
+              padding-top: 20px;
+              padding-left: 15px;
+            }
+            .author-card .author-card-profile .author-card-name {
+              margin-bottom: 2px;
+              font-size: 14px;
+              font-weight: bold;
+            }
+            .author-card .author-card-profile .author-card-position {
+              display: block;
+              color: #8c8c8c;
+              font-size: 12px;
+              font-weight: 600;
+            }
+            .author-card .author-card-info {
+              margin-bottom: 0;
+              padding: 0 25px;
+              font-size: 13px;
+            }
+            .author-card .author-card-social-bar-wrap {
+              position: absolute;
+              bottom: -18px;
+              left: 0;
+              width: 100%;
+            }
+            .author-card .author-card-social-bar-wrap .author-card-social-bar {
+              display: table;
+              margin: auto;
+              background-color: #fff;
+              box-shadow: 0 12px 20px 1px rgba(64, 64, 64, .11);
+            }
+            .btn-style-1.btn-white {
+                background-color: #fff;
+            }
+            .list-group-item i {
+                display: inline-block;
+                margin-top: -1px;
+                margin-right: 8px;
+                font-size: 1.2em;
+                vertical-align: middle;
+            }
+            .mr-1, .mx-1 {
+                margin-right: .25rem !important;
+            }
+            
+            .list-group-item.active:not(.disabled) {
+                border-color: #e7e7e7;
+                background: #fff;
+                color: #ac32e4;
+                cursor: default;
+                pointer-events: none;
+            }
+            .list-group-flush:last-child .list-group-item:last-child {
+                border-bottom: 0;
+            }
+            
+            .list-group-flush .list-group-item {
+                border-right: 0 !important;
+                border-left: 0 !important;
+            }
+            
+            .list-group-flush .list-group-item {
+                border-right: 0;
+                border-left: 0;
+                border-radius: 0;
+            }
+            .list-group-item.active {
+                z-index: 2;
+                color: #fff;
+                background-color: #007bff;
+                border-color: #007bff;
+            }
+            .list-group-item:last-child {
+                margin-bottom: 0;
+                border-bottom-right-radius: .25rem;
+                border-bottom-left-radius: .25rem;
+            }
+            a.list-group-item, .list-group-item-action {
+                color: #404040;
+                font-weight: 600;
+            }
+            .list-group-item {
+                padding-top: 16px;
+                padding-bottom: 16px;
+                -webkit-transition: all .3s;
+                transition: all .3s;
+                border: 1px solid #e7e7e7 !important;
+                border-radius: 0 !important;
+                color: #404040;
+                font-size: 12px;
+                font-weight: 600;
+                letter-spacing: .08em;
+                text-transform: uppercase;
+                text-decoration: none;
+            }
+            .list-group-item {
+                position: relative;
+                display: block;
+                padding: .75rem 1.25rem;
+                margin-bottom: -1px;
+                background-color: #fff;
+                border: 1px solid rgba(0,0,0,0.125);
+            }
+            .list-group-item.active:not(.disabled)::before {
+                background-color: #ac32e4;
+            }
+            
+            .list-group-item::before {
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 3px;
+                height: 100%;
+                background-color: transparent;
+                content: '';
+            }
+            
+            .p-image {
+                position: absolute;
+                top: 62px;
+                /*right: 190px;*/
+                background: #4c4892;
+                padding: 3px 7px;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+            .p-image i {
+            margin-top: 5px;
+            color: white!important;
+            }
+            .file-upload {
+    display: none!important;
+}
+.circle {
+    border-radius: 1000px !important;
+    overflow: hidden;
+    width: 128px;
+    height: 128px;
+    border: 8px solid rgba(255, 255, 255, 0.7);
+    position: absolute;
+    top: 72px;
+}
+.upload-button {
+  font-size: 1.2em;
+}
+
+.upload-button:hover {
+  transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+  color: #999;
+}
+</style>
+<!-- Main Container  -->
+	<div class="main-container container">
+		<ul class="breadcrumb">
+			<li><a href="#"><i class="fa fa-home"></i></a></li>
+			<li><a href="#">Account</a></li>
+			<li><a href="#">My Account</a></li>
+		</ul>
+		
+		<div class="row">
+			<!--Middle Part Start-->
+			<div class="col-sm-9" id="content">
+				<h2 class="title">My Account</h2>
+			
+				            <div class="author-card pb-3">
+                <div class="author-card-cover" style="background-image: url(https://demo.createx.studio/createx-html/img/widgets/author/cover.jpg);"></div>
+                <div class="author-card-profile">
+                    <div class="author-card-avatar"><img src="<%= user.img_url %>" class="profile-pic" alt="<%= user.firstName %> <%= user.lastName %>">
+                      <div class="p-image">
+                       <i class="fa fa-camera mt-1 upload-button text-light"></i>
+                        <input class="file-upload" type="file" id="pic" accept="image/*"/>
+                     </div>
+                    </div>
+                    <div class="author-card-details">
+                        	<p class="lead" style="color: #fff;">Hello, <strong><%= user.firstName %> <%= user.lastName %>!</strong> - View and Edit your account information.</p>
+                    </div>
+                </div>
+            </div>
+				<form onsubmit="sub(event)">
+					<div class="row">
+						<div class="col-sm-9">
+							<fieldset id="personal-details">
+								<legend>Personal Details</legend>
+								<div class="form-group">
+									<label for="input-firstname" class="control-label">First Name</label>
+									<input type="text" class="form-control" id="fname" placeholder="First Name" value="<%= user.firstName %>" name="firstname">
+								</div>
+								<div class="form-group">
+									<label for="input-lastname" class="control-label">Last Name</label>
+									<input type="text" class="form-control" id="lname" placeholder="Last Name" value="<%= user.lastName %>" name="lastname">
+								</div>
+								<div class="form-group">
+									<label for="input-email" class="control-label">E-Mail</label>
+									<input type="email" class="form-control" id="input-email" placeholder="E-Mail" value="<%= user.email %>" name="email" disabled>
+								</div>
+								<div class="form-group">
+									<label for="input-telephone" class="control-label">Telephone</label>
+									<input type="tel" class="form-control" id="input-telephone" placeholder="Telephone" value="<%= user.phone %>" name="telephone" disabled>
+								</div>      
+                                	<div class="form-group">
+									<label for="input-telephone" class="control-label">Address</label>
+									<input type="text" class="form-control" id="address" placeholder="Your Address" value="<%= user.address %>" name="address">
+								</div>
+									<div class="buttons clearfix">
+            						<div class="pull-right">
+            							<input type="submit" class="btn btn-md btn-primary" value="Save Changes">
+            						</div>
+            					</div>
+							</fieldset>
+							<br>
+						</div>
+						</form>
+						<form onsubmit="change(event)">
+						<div class="col-sm-9">
+							<fieldset>
+								<legend>Change Password</legend>
+								<div class="form-group">
+									<label for="input-password" class="control-label">Old Password</label>
+									<input type="password" class="form-control" id="old" placeholder="Old Password" value="" name="old-password">
+								</div>
+								<div class="form-group">
+									<label for="input-password" class="control-label">New Password</label>
+									<input type="password" class="form-control" id="pass"  placeholder="New Password" value="" name="new-password">
+								</div>
+								<div class="form-group">
+									<label for="input-confirm" class="control-label">New Password Confirm</label>
+									<input type="password" class="form-control" id="pass2" placeholder="New Password Confirm" value="" name="new-confirm">
+								</div>
+							</fieldset>
+							<!--<fieldset>-->
+							<!--	<legend>Newsletter</legend>-->
+							<!--	<div class="form-group">-->
+							<!--		<label class="col-md-2 col-sm-3 col-xs-3 control-label">Subscribe</label>-->
+							<!--		<div class="col-md-10 col-sm-9 col-xs-9">-->
+							<!--			<label class="radio-inline">-->
+							<!--				<input type="radio" value="1" name="newsletter"> Yes-->
+							<!--			</label>-->
+							<!--			<label class="radio-inline">-->
+							<!--				<input type="radio" checked="checked" value="0" name="newsletter"> No-->
+							<!--			</label>-->
+							<!--		</div>-->
+							<!--	</div>-->
+							<!--</fieldset>-->		<div class="buttons clearfix">
+						<div class="pull-right">
+							<input type="submit" class="btn btn-md btn-primary" value="Change Password">
+						</div>
+					</div>
+				</form>
+						</div>
+			
+					</div>
+
+
+
+			</div>
+			<!--Middle Part End-->
+			<!--Right Part Start -->
+			<aside class="text-right col-sm-3 hidden-xs content-aside col-md-3" id="column-right">
+				<h2 class="subtitle">Account</h2>
+				<div class="list-group">
+					<ul class="list-item">
+					    
+						<li><a href="/account">My Account</a>
+						</li>
+						<li><a href="/wishlist">Wish List</a>
+						</li>
+						<li><a href="/orders">Order History</a>
+						</li>
+						
+						<li><a href="/refer">Reward Points</a>
+						</li>
+					</ul>
+				</div>
+			</aside>
+			<!--Right Part End -->
+		</div>
+	</div>
+	<!-- //Main Container -->
+	
+
+<%- include("footer_auth") %>
+<script>
+    	     const sub = (event) => {
+     	         event.preventDefault()
+     axios.post("/update-profile", {
+       fname: document.getElementById("fname").value,
+       lname: document.getElementById("lname").value,
+       address: document.getElementById("address").value,
+     }).then(res => {
+         if(res.data.message){
+             $.alert(res.data.message);
+             location.reload()
+         }
+                           else if(res.data.error){
+             $.alert(res.data.error)
+         }
+     }).catch(err => {
+                if(err){
+                    if(err.response){
+                        $.alert(err.response.data.error);
+                    }else {
+                        $.alert("There was an error with your request");
+                    }
+                }
+            })
+ }
+ 
+     	     const change = (event) => {
+     	         event.preventDefault()
+     axios.post("/change-pass", {
+       pass: document.getElementById("pass").value,
+       pass2: document.getElementById("pass2").value,
+       old: document.getElementById("old").value,
+     }).then(res => {
+         if(res.data.message){
+             $.alert(res.data.message);
+             location.reload()
+         }
+                  else if(res.data.error){
+             $.alert(res.data.error)
+         }
+     }).catch(err => {
+                if(err){
+                    if(err.response){
+                        $.alert(err.response.data.error);
+                    }else {
+                        $.alert("There was an error with your request");
+                    }
+                }
+            })
+ }
+     $(document).ready(function() {
+
+    
+    var readURL = function(input) {
+         let fd = new FormData();
+      var pic = $('#pic')[0].files[0];
+
+      fd.append('profile_pic', pic);
+      axios.post('/update-dp',
+          fd, {
+           headers: {
+                      'Content-Type': 'multipart/form-data'
+                    },
+          }
+        ).then(function (res) {
+          console.log(res);
+               if(res.data.message){
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.profile-pic').attr('src', e.target.result);
+            }
+    
+            reader.readAsDataURL(input.files[0]);
+        }
+            }
+            	else if(res.data.error){
+  alert(res.data.error)  
+            	}
+        
+        })
+       .catch(error => {
+            if(error.response){
+            
+                if(error.response.status == 401){
+                    console.log(error.response)
+alert(error.response.data.error)  }
+            }
+            else if(error){
+            console.log(error)
+            alert("there was an error")
+            }
+        }
+        )
+        
+    }
+    
+   
+    $(".file-upload").on('change', function(){
+        readURL(this)
+    });
+    
+    $(".upload-button").on('click', function() {
+       $(".file-upload").click();
+    });
+});
+</script>

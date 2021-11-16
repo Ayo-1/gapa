@@ -1,0 +1,103 @@
+<%- include("header_auth") %>
+
+  
+	<!-- Main Container  -->
+	<div class="main-container container">
+		<ul class="breadcrumb">
+			<li><a href="#"><i class="fa fa-home"></i></a></li>
+			<li><a href="#">Account</a></li>
+			<li><a href="#">Login</a></li>
+		</ul>
+		
+		<div class="row">
+			<div id="content" class="col-sm-12">
+				<div class="page-login">
+				
+					<div class="account-border">
+						<div class="row">
+							<div class="col-sm-6 new-customer">
+								<div class="well">
+									<h2><i class="fa fa-file-o" aria-hidden="true"></i> New Customer</h2>
+									<p>By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</p>
+								</div>
+								<div class="bottom-form">
+								    <% if(ref){ %>
+									<a href="/register?ref=<%= ref %>" class="btn btn-default pull-right">Continue</a>
+									<% }else { %>
+									<a href="/register" class="btn btn-default pull-right">Continue</a>
+									<%  } %>
+								</div>
+							</div>
+							
+							<form onsubmit="sub(event)">
+								<div class="col-sm-6 customer-login">
+									<div class="well">
+										<h2><i class="fa fa-file-text-o" aria-hidden="true"></i> Returning Customer</h2>
+										<p><strong>I am a returning customer</strong></p>
+										<div class="form-group required">
+											<label class="control-label " for="input-email">E-Mail Address Or Phone Number</label>
+											<input type="text" name="email" value="" id="input-email" class="form-control" required/>
+										</div>
+										<div class="form-group required">
+											<label class="control-label " for="input-password">Password</label>
+											<input type="password" name="password" value="" id="input-password" class="form-control" required/>
+										</div>
+										<div class="form-group" id="err">
+										</div>
+									</div>
+									<div class="bottom-form">
+										<a href="/forgot-password" class="forgot">Forgotten Password</a>
+										<input type="submit" value="Login" id="btn" class="btn btn-default pull-right" />
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //Main Container -->
+
+<%- include("footer_auth") %>
+
+<script>
+    const sub = (event) => {
+        event.preventDefault();
+        var btn = document.getElementById("btn")
+        var err = document.getElementById("err")
+        var email = document.getElementById("input-email").value
+        var password = document.getElementById("input-password").value
+        btn.disabled = true
+        btn.value = "Loading..."
+        err.innerHTML = ""
+        axios.post("/login<% if(ref){ %>?ref=<%= ref %><% } %>", {
+            email,
+            password
+        }).then(data => {
+            if(data.data.message){
+                err.innerHTML = `<div class="alert alert-success alert-dismissable">${data.data.message}</div>`
+                btn.disabled = false
+                btn.value = "Login"
+                location.href = data.data.path
+            }else if(data.data.error) {
+                 err.innerHTML = `<div class="alert alert-danger alert-dismissable">${data.data.error}</div>`
+                btn.disabled = false
+                btn.value = "Login"
+            }
+        }).catch(er => {
+            if(er){
+                if(er.response){
+                    err.innerHTML = `<div class="alert alert-danger alert-dismissable">${er.response.data.error}</div>`
+                btn.disabled = false
+                btn.value = "Login" 
+                }else{
+                     err.innerHTML = `<div class="alert alert-danger alert-dismissable">There was an error processing your request please try again</div>`
+                btn.disabled = false
+                btn.value = "Login"
+                }
+            }
+        })
+    }
+</script>

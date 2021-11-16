@@ -1,0 +1,567 @@
+<%- include("header_auth") %>
+<style>
+@media (max-width: 718px) {
+    .quantity {
+        display: block;
+    }
+}
+</style>
+<div class="main-container container">
+		<ul class="breadcrumb">
+			<li><a href="#"><i class="fa fa-home"></i></a></li>
+			<li><a href="#">Checkout</a></li>
+			
+		</ul>
+		
+		<div class="row">
+			<!--Middle Part Start-->
+			<div id="content" class="col-sm-12">
+			  <h2 class="title">Checkout</h2>
+			  <div class="so-onepagecheckout row">
+				<div class="mx-auto col-sm-12" id="addr">
+				  <div class="panel panel-default">
+					<div class="panel-heading">
+					  <h4 class="panel-title"><i class="fa fa-book"></i> Shipping Address</h4>
+					</div>
+					  <div class="panel-body">
+					      <form onsubmit="shp(event)">
+							<fieldset id="address" class="required">
+							  <div class="form-group required">
+								<label for="input-payment-address-1" class="control-label">Address</label>
+								<input type="text" class="form-control" value="" name="address" name="myAddress" <% if(user.address){ %>value="<%= user.address %>"<% } else { %><% } %> placeholder="Enter your address" id="myAddress" required>
+							  </div>
+							  	<button type="submit" class="btn btn-primary mt-2" id="btn"> Calculate Shipping </button>
+							  	</form>
+							 <!-- <div class="form-group required">-->
+								<!--<label for="input-payment-zone" class="control-label">Region / State</label>-->
+								<!--<select class="form-control" id="state" name="zone_id">-->
+								<!--<option value=""> --- Please Select Your State--- </option>-->
+								<!--		   <option value="Abuja FCT">Abuja FCT</option>-->
+        <!--                                  <option value="Abia">Abia</option>-->
+        <!--                                  <option value="Adamawa">Adamawa</option>-->
+        <!--                                  <option value="Akwa Ibom">Akwa Ibom</option>-->
+        <!--                                  <option value="Anambra">Anambra</option>-->
+        <!--                                  <option value="Bauchi">Bauchi</option>-->
+        <!--                                  <option value="Bayelsa">Bayelsa</option>-->
+        <!--                                  <option value="Benue">Benue</option>-->
+        <!--                                  <option value="Borno">Borno</option>-->
+        <!--                                  <option value="Cross River">Cross River</option>-->
+        <!--                                  <option value="Delta">Delta</option>-->
+        <!--                                  <option value="Ebonyi">Ebonyi</option>-->
+        <!--                                  <option value="Edo">Edo</option>-->
+        <!--                                  <option value="Ekiti">Ekiti</option>-->
+        <!--                                  <option value="Enugu">Enugu</option>-->
+        <!--                                  <option value="Gombe">Gombe</option>-->
+        <!--                                  <option value="Imo">Imo</option>-->
+        <!--                                  <option value="Jigawa">Jigawa</option>-->
+        <!--                                  <option value="Kaduna">Kaduna</option>-->
+        <!--                                  <option value="Kano">Kano</option>-->
+        <!--                                  <option value="Katsina">Katsina</option>-->
+        <!--                                  <option value="Kebbi">Kebbi</option>-->
+        <!--                                  <option value="Kogi">Kogi</option>-->
+        <!--                                  <option value="Kwara">Kwara</option>-->
+        <!--                                  <option value="Lagos">Lagos</option>-->
+        <!--                                  <option value="Nassarawa">Nassarawa</option>-->
+        <!--                                  <option value="Niger">Niger</option>-->
+        <!--                                  <option value="Ogun">Ogun</option>-->
+        <!--                                  <option value="Ondo">Ondo</option>-->
+        <!--                                  <option value="Osun">Osun</option>-->
+        <!--                                  <option value="Oyo">Oyo</option>-->
+        <!--                                  <option value="Plateau">Plateau</option>-->
+        <!--                                  <option value="Rivers">Rivers</option>-->
+        <!--                                  <option value="Sokoto">Sokoto</option>-->
+        <!--                                  <option value="Taraba">Taraba</option>-->
+        <!--                                  <option value="Yobe">Yobe</option>-->
+        <!--                                  <option value="Zamfara">Zamfara</option>-->
+								<!--</select>-->
+							 <!-- </div>-->
+							 <!-- <div class="checkbox">-->
+								<!--<label>-->
+								<!--  <input type="checkbox" checked="checked" value="1" name="shipping_address">-->
+								<!--  My delivery and billing addresses are the same.</label>-->
+							 <!-- </div>-->
+							</fieldset>
+						  </div>
+				  </div>
+				</div>
+				<div class="mx-auto col-sm-12">
+				  <div class="row">
+					<div class="col-sm-12">
+						<div class="panel panel-default no-padding">
+							<div class="panel-heading">
+								  <h4 class="panel-title"><i class="fa fa-truck"></i> Delivery</h4>
+								</div>
+								<div class="col-sm-6 checkout-shipping-methods">
+								
+								<div class="panel-body ">
+									<p>Please Select How you want to recieve your Order.</p>
+									<div class="radio">
+									  <label>
+										<input type="radio" checked="checked" id="deliver" name="delivery[]" onchange="change()">
+										Delivery To Address</label>
+									</div>
+									<div class="radio">
+									  <label>
+										<input type="radio" id="pick" name="delivery[]" onchange="change()">
+										Pickup</label>
+									</div>
+									
+								</div>
+							</div>
+							<!--<div class="col-sm-6  checkout-payment-methods">-->
+							<!--	<div class="panel-heading">-->
+								  <!--<h4 class="panel-title"><i class="fa fa-credit-card"></i> Payment Method</h4>-->
+							<!--	</div>-->
+							<!--	<div class="panel-body">-->
+							<!--		<p>Please select the preferred payment method to use on this order.</p>-->
+							<!--		<div class="radio">-->
+							<!--		  <label>-->
+							<!--			<input type="radio" checked="checked" name="Cash On Delivery">Cash On Delivery</label>-->
+							<!--		</div>-->
+									
+							<!--		<div class="radio">-->
+							<!--		  <label>-->
+							<!--			<input type="radio" name="Paypal">Paypal</label>-->
+							<!--		</div>-->
+							<!--	</div>-->
+							<!--</div>-->
+						</div>
+						
+						
+							
+						</div>
+					
+					
+					
+					<!--<div class="col-sm-12">-->
+					<!--  <div class="panel panel-default">-->
+					<!--	<div class="panel-heading">-->
+					<!--	  <h4 class="panel-title"><i class="fa fa-ticket"></i> Do you Have a Coupon or Voucher?</h4>-->
+					<!--	</div>-->
+					<!--	  <div class="panel-body row">-->
+					<!--		<div class="col-sm-6 ">-->
+					<!--		<div class="input-group">-->
+					<!--		  <input type="text" class="form-control" id="input-coupon" placeholder="Enter your coupon here" value="" name="coupon">-->
+					<!--		  <span class="input-group-btn">-->
+					<!--		  <input type="button" class="btn btn-primary" data-loading-text="Loading..." id="button-coupon" value="Apply Coupon">-->
+					<!--		  </span></div>-->
+					<!--		</div>-->
+							
+					<!--		<div class="col-sm-6">-->
+					<!--		<div class="input-group">-->
+					<!--		  <input type="text" class="form-control" id="input-voucher" placeholder="Enter your gift voucher code here" value="" name="voucher">-->
+					<!--		  <span class="input-group-btn">-->
+					<!--		  <input type="submit" class="btn btn-primary" data-loading-text="Loading..." id="button-voucher" value="Apply Voucher">-->
+					<!--		  </span> </div>-->
+					<!--		</div>-->
+					<!--	  </div>-->
+					<!--  </div>-->
+					<!--</div>-->
+					
+					<div class="col-sm-12">
+					  <div class="panel panel-default">
+						<div class="panel-heading">
+						  <h4 class="panel-title"><i class="fa fa-shopping-cart"></i> Shopping cart</h4>
+						</div>
+						       <div id="crt" style="display: none;">
+						  <div class="panel-body">
+							<div class="table-responsive">
+							  <table class="table table-bordered">
+								<thead>
+								<tr>
+                                <td class="text-center">Image</td>
+                                <td class="text-left">Product Name</td>
+                                <td class="text-left">Car Details</td>
+                                <td class="text-left">Quantity</td>
+                                <td class="text-right">Unit Price</td>
+                                <td class="text-right">Total</td>
+								  </tr>
+								</thead>
+                                <tbody id="list">
+                               
+                                </tbody>
+								<tfoot>
+								<tr>
+    							<td class="text-right" colspan="5">
+    								<strong>Sub-Total:</strong>
+    							</td>
+    							
+    							<td class="text-right" id="sub"><%- cur %> 0</td>
+        						</tr>
+        						<!--<tr>-->
+        						<!--	<td class="text-right">-->
+        						<!--		<strong>Flat Shipping Rate:</strong>-->
+        						<!--	</td>-->
+        						<!--	<td class="text-right">$4.69</td>-->
+        						<!--</tr>-->
+        						<!--<tr>-->
+        						<!--	<td class="text-right">-->
+        						<!--		<strong>Eco Tax (-2.00):</strong>-->
+        						<!--	</td>-->
+        						<!--	<td class="text-right">$5.62</td>-->
+        						<!--</tr>-->
+        						<tr>
+        							<td class="text-right" colspan="5">
+        								<strong>Shipping:</strong>
+        							</td>
+        							<td class="text-right" id="ship"><%- cur %> 0</td>
+        						</tr>
+        						<tr>
+        							<td class="text-right" colspan="5">
+        								<strong>Total:</strong>
+        							</td>
+        							<td class="text-right" id="total"><%- cur %> 0</td>
+        						</tr>
+								</tfoot>
+							  </table>
+							</div>
+						  </div>
+						  </div>
+					  </div>
+					</div>
+					<div class="col-sm-12">
+					  <div class="panel panel-default">
+						<div class="panel-heading">
+						  <h4 class="panel-title"><i class="fa fa-pencil"></i> Add Comments About Your Order</h4>
+						</div>
+						  <div class="panel-body">
+							<textarea rows="4" class="form-control" id="confirm_comment" name="comments"></textarea>
+							<br />
+							<div class="buttons">
+							  <div class="pull-right">
+								<input type="button" class="btn btn-primary" id="subb" onclick="makePayment()" value="Confirm Order" disabled>
+							  </div>
+							</div>
+						  </div>
+					  </div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			</div>
+			<!--Middle Part End -->
+			
+		</div>
+	</div>
+	<!-- //Main Container -->
+<%- include("footer_auth") %>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyA7rH5a3PDD9CNhVRg20L25A7aAbPKSuN4"></script> 
+<script src="https://checkout.flutterwave.com/v3.js"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script> 
+<script>
+    
+function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+}
+</script>
+<script>
+
+ var ship = 0;
+var sub = 0
+var total = 0
+const change = () => {
+    if($("input[name='delivery[]']:checked").attr("id") === "pick"){
+        document.getElementById('addr').style.display = "none"
+        document.getElementById("ship").display = "none"
+        document.getElementById("total").innerHTML = `<%- cur %> ${total - ship}`
+        total = total - ship
+        document.getElementById("subb").disabled = false
+    }else {
+        document.getElementById('addr').style.display = "block"
+        document.getElementById("myAddress").value = ""
+        document.getElementById("subb").disabled = true
+    }
+}
+
+const shp = (event) => {
+    event.preventDefault()
+    var address = document.getElementById("myAddress").value
+    
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyA7rH5a3PDD9CNhVRg20L25A7aAbPKSuN4`).then(data => {
+        if(data.data){
+            axios.post("/get-shipping", {
+                lat: data.data.results[0].geometry.location.lat,
+                long: data.data.results[0].geometry.location.lng
+            }).then(res => {
+                console.log(res)
+                if(res.data.message){
+                    $.alert(res.data.message)
+            total = total - ship
+            ship = res.data.amountperkm * Math.round(res.data.dist)
+            document.getElementById("ship").innerHTML = `<%- cur %> ${res.data.amountperkm * Math.round(res.data.dist)}`
+            total = total + ship
+            console.log(total)
+            document.getElementById("total").innerHTML = `<%- cur %> ${total}`
+            document.getElementById("subb").disabled = false
+                }else if(res.data.error) {
+                    $.alert(res.data.error)
+                }
+            }).catch(err => {
+        if(err){
+            console.log(err)
+            if(err.response){
+                console.log(err.response)
+                 $.alert(err.response.data.message)
+            }else {
+                 $.alert("There was an error, Please Check you network")
+            }
+        }
+    })
+        }else{
+            $.alert("Please Provide a valid address")
+        }
+    }).catch(err => {
+        console.log(err)
+        $.alert("An Error Occurred")
+    }
+    )
+
+}
+
+
+    var searchInput = 'myAddress';
+    
+        $(document).ready(function () {
+            var autocomplete;
+            autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+                types: ['geocode']
+               
+            });
+        
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                var near_place = autocomplete.getPlace();
+            });
+        });
+
+
+if(localStorage.getItem('products')){
+        var products = JSON.parse(localStorage.getItem('products'));
+    }
+else {
+    var products = []
+}
+
+axios.post("/items", {
+products
+}).then(data => {
+    if(data.data.items){
+        if(data.data.items.length > 0){
+            const get_discount = (price, dis) => {
+                                var d1 = price * dis
+                                return Math.floor(d1/100)
+                                
+                            }
+            
+            var txt = ``
+            
+            data.data.items.forEach(item => {
+                var price = item.discount > 0? item.price - get_discount(parseInt(item.price), item.discount) : item.price
+                let storageProducts = JSON.parse(localStorage.getItem('products'));
+                var qty = storageProducts.filter(product => product.id == item.id)[0].quantity
+                console.log(storageProducts, qty)
+                sub += parseInt(price) * qty
+                txt += `
+                <tr>
+                    <td class="text-center"><a href="/parts/${item.id}"><img width="70px" src="${item.img_url}" alt="${item.name}" title="${item.name}" class="img-thumbnail"></a></td>
+                    <td class="text-left"><a href="/parts/${item.id}">${item.name}</a><br>
+                     </td>
+                        <td class="text-left">${item.model.name}/${item.model.car.brand.name}</td>
+                    <td class="text-left" width="200px"><div class="input-group btn-block quantity">
+                        <input type="text" name="quantity" value="${qty}" id="${item.id + "_qty"}" size="1" class="form-control the_qty" onkeypress="return isNumber(event)">
+                        <span class="input-group-btn">
+                        <button type="submit" data-toggle="tooltip" title="" class="btn btn-primary" onclick="update_qty('${item.id}', '${item.img_url}','${item.name}', '${item.stock}'')" data-original-title="Update"><i class="fa fa-refresh"></i></button>
+                        <button type="button" data-toggle="tooltip" title="" class="btn btn-danger" onclick="remove('${item.id}', '${item.name}')" data-original-title="Remove"><i class="fa fa-times-circle"></i></button>
+                        </span></div></td>
+                    <td class="text-right"><%- cur %>${price}</td>
+                    <td class="text-right"><%- cur %> ${price * qty}</td>
+                  </tr>
+                `
+            })
+            document.getElementById("list").innerHTML = txt
+            document.getElementById("sub").innerHTML = '<%- cur %>' + sub
+            document.getElementById("total").innerHTML = `<%- cur %> ${sub}`
+            total = sub 
+            $("#crt").show()
+            $("#check").show()
+            $("#loading").remove()
+        }else {
+            location.href  = "/cart"
+            $("#empty").show()
+            $("#loading").remove()
+        }
+    }
+}).catch(err => {
+    
+    location.href = "/cart"
+    console.log(err)
+     $("#empty").show()
+            $("#loading").remove()
+})
+
+function insertAt(array, index, ...elements) {
+    array.splice(index, 0, ...elements);
+}
+    const update_qty = (id, image, name, max) => {
+        var val = document.getElementById(id + "_qty").value
+                if(parseInt(max) !== parseInt(val) && parseInt(val) > parseInt(max) ){
+            return $.alert('only ' + max + ' in Stock')
+        }
+        let storageProducts = JSON.parse(localStorage.getItem('products'));
+        let product = storageProducts.filter(product => product.id === id )[0];
+    let products = storageProducts.filter(product => product.id !== id );
+    localStorage.setItem('products', JSON.stringify(products));
+    
+    let prod = [];
+    if(localStorage.getItem('products')){
+        prod = JSON.parse(localStorage.getItem('products'));
+    }
+    
+    insertAt(prod, storageProducts.indexOf(product), {'id' : id, "image" : image, "name": name, quantity: val});
+    localStorage.setItem('products', JSON.stringify(prod));
+    console.log(prod, val)
+    $.alert("Quantity Updated")
+    location.reload()
+}
+    
+    const remove = (id, name) => {
+
+    // Your logic for your app.
+
+    // strore products in local storage
+
+    let storageProducts = JSON.parse(localStorage.getItem('products'));
+    let products = storageProducts.filter(product => product.id !== id );
+    localStorage.setItem('products', JSON.stringify(products));
+        addProductNotice("CART UPDATED", `<h3><a href="#">${name}</a> removed from <a href="/cart">shopping cart</a>!</h3>`, 'success');
+        document.getElementById("ct_num").innerHTML = products.length
+		            location.reload()
+    }
+    function makePayment() {
+            if (document.getElementById('deliver').checked) {
+if(document.getElementById("myAddress").value == ""){
+   return $.alert("Please Provide Your Address")
+}
+}
+           $.confirm({
+    title: 'Make Payment?',
+    content: 'Pay NGN' + total + " ?",
+    buttons: {
+        confirm: function () {
+    let handler = PaystackPop.setup({
+    key: 'pk_test_17d2dcd323487bc747e7f5d37e499819a14ffea2', // Replace with your public key
+    email: "<%= user.email %>",
+    amount: total * 100,
+   // label: "Optional string that replaces customer email"
+    onClose: function(){
+      alert('Window closed.');
+    },
+    callback: function(response){
+      let message = 'Payment complete! Reference: ' + response.reference;
+          axios.post("/order", {
+        user_id: "<%= user.id %>",
+        payment_id: response.reference,
+        amount: total,
+        items: JSON.parse(localStorage.getItem('products')),
+        type: document.getElementById("deliver").checked ? "delivery" : "pickup",
+        address: document.getElementById("deliver").checked ? document.getElementById("myAddress").value : "null",
+        comment: document.getElementById("confirm_comment").value == "" ? "Order Placed" : document.getElementById("confirm_comment").value,
+        ship: ship == 0 ? "0" : ship
+        
+    }).then(res => {
+        if(res.data.message){
+            location.href = res.data.path
+            localStorage.clear();
+        }
+        else {
+            console.log(res.data)
+          //  location.reload()
+        }
+    }).catch(err => {
+        if(err){
+            console.log(err)
+            if(err.response){
+                console.log(err.response)
+            }
+          //  location.reload()
+        }
+    })
+    }
+  });
+  handler.openIframe();            
+   
+           
+        },
+        cancel: function () {
+           
+        }
+    }
+});
+
+  }
+
+//   FlutterwaveCheckout({
+//       public_key: "FLWPUBK_TEST-288013119a15ef4c3629c60632dec0df-X",
+//       tx_ref: "ORD_TX_<%= cryptoRandomString({length: 10, type: 'base64'}) %>",
+//       amount: total,
+//       currency: "NGN",
+//       country: "NG",
+//       payment_options: "card, mobilemoneyghana, ussd",
+//     //   redirect_url: // specified redirect URL
+//     //     "https://callbacks.piedpiper.com/flutterwave.aspx?ismobile=34",
+//     //   meta: {
+//     //     consumer_id: 23,
+//     //     consumer_mac: "92a3-912ba-1192a",
+//     //   },
+//       customer: {
+//         email: "<%= user.email %>",
+//         phone_number: "<%= user.phone %>",
+//         name: "<%= user.firstName %> <%= user.lastName %>",
+//       },
+//       callback: function (data) {
+//         console.log(data);
+//           /* your callback code */ 
+//     //   location.href= "/"
+//     axios.post("/order", {
+//         user_id: "<%= user.id %>",
+//         payment_id: data.tx_ref,
+//         amount: total,
+//         items: JSON.parse(localStorage.getItem('products')),
+//         type: document.getElementById("deliver").checked ? "delivery" : "pickup",
+//         address: document.getElementById("deliver").checked ? document.getElementById("myAddress").value : "null",
+//         comment: document.getElementById("confirm_comment").value == "" ? "Order Placed" : document.getElementById("confirm_comment").value,
+//         ship: ship == 0 ? "0" : ship
+        
+//     }).then(res => {
+//         if(res.data.message){
+//             location.href = res.data.path
+//             localStorage.clear();
+//         }
+//         else {
+//             console.log(res.data)
+//           //  location.reload()
+//         }
+//     }).catch(err => {
+//         if(err){
+//             console.log(err)
+//             if(err.response){
+//                 console.log(err.response)
+//             }
+//           //  location.reload()
+//         }
+//     })
+//       },
+//       onclose: function() {
+//         // close modal
+//       },
+//       customizations: {
+//         title: "My store",
+//         description: "Payment for items in cart",
+//         logo: "https://gapaautoparts.com/img/logo.png",
+//       },
+//     });
+</script>

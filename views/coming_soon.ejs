@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title><%= title %></title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cmsn/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cmsn/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cmsn/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cmsn/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/cmsn/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/cmsn/css/main.css">
+<!--===============================================================================================-->
+<style>
+#tt {
+    max-width: 40%;
+}
+    @media (max-width: 992px){
+        #tt {
+            max-width: 100%;
+        }
+    }
+   @media(min-width: 993px){
+       .size2{
+        width: 66%;
+    }
+   }
+</style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+</head>
+<body>
+	
+	
+	<div class="size1 bg0 where1-parent">
+		<!-- Coutdown -->
+		<div class="flex-c-m bg-img1 size2 where1 overlay1 where2 respon2" style="background-image: url('/uploads/098imgonline-com-ua-ReplaceColor-sOnsjRgu5WtaiNjg (1).png');">
+			<div class="wsize2 flex-w flex-c-m cd100 js-tilt">
+			<center>
+			    <img src="/img/Gapa_new_1.png" height="120px" />
+			</center>
+			</div>
+		</div>
+		
+		<!-- Form -->
+		<div id="tt" style="display: flex; justify-content: center; align-items: center;" class="size3 flex-col-sb flex-w p-l-75 p-r-75 p-t-45 p-b-45 respon1">
+
+			<div class="p-t-40 p-b-60" style="margin-top: -10px;">
+				<p class="m1-txt1 p-b-36">
+					Our website is <span class="m1-txt2">Coming Soon</span>
+				</p>
+
+				<form class="contact100-form validate-form" onsubmit="sub(event)">
+					<div class="wrap-input100 m-b-10 validate-input">
+						<input class="s2-txt1 placeholder0 input100" type="text" name="name" id="name" placeholder="Your Name" required>
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 m-b-20 validate-input">
+						<input class="s2-txt1 placeholder0 input100" type="text" name="email" id="email" placeholder="Email Address" required>
+						<span class="focus-input100"></span>
+					</div>
+					<div class=" m-b-20">
+						<textarea type="text" class="s2-txt1 placeholder0 input100 form-control" name="msg" style="padding: 23px;" id="message" placeholder="Message" rows="5" required></textarea>
+					</div>
+
+					<div class="w-full">
+					    <div id="err"></div>
+						<button id="btn" type="submit" class="flex-c-m s2-txt2 size4 bg1 bor1 hov1 trans-04">
+							Send
+						</button>
+					</div>
+				</form>
+
+				<p class="s2-txt3 p-t-18">
+					Contact us for more details, and Questions.
+				</p>
+			</div>
+
+		</div>
+	</div>
+
+
+
+	
+
+<!--===============================================================================================-->	
+	<script src="/cmsn/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/cmsn/vendor/bootstrap/js/popper.js"></script>
+	<script src="/cmsn/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/cmsn/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	
+<!--===============================================================================================-->
+	<script src="/cmsn/vendor/tilt/tilt.jquery.min.js"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="/cmsn/js/main.js"></script>
+    <script>
+            
+        const sub = (event) => {
+        event.preventDefault();
+        var btn = document.getElementById("btn")
+        var err = document.getElementById("err")
+        var email = document.getElementById("email")
+        var name = document.getElementById("name")
+        var message = document.getElementById("message")
+        btn.disabled = true
+        btn.value = "Loading..."
+        err.innerHTML = ""
+        axios.post("/send-message", {
+            email: email.value,
+            name: name.value,
+            message: message.value
+        }).then(data => {
+            if(data.data.message){
+                $.alert(data.data.message)
+                btn.disabled = false
+                btn.value = "Send"
+                email.value = ""
+                name.value = ""
+                message.value = ""
+            }else if(data.data.error) {
+                 err.innerHTML = `<div class="alert alert-danger alert-dismissable">${data.data.error}</div>`
+                btn.disabled = false
+                btn.value = "Send"
+            }
+        }).catch(er => {
+            if(er){
+                if(er.response){
+                    err.innerHTML = `<div class="alert alert-danger alert-dismissable">${er.response.data.error}</div>`
+                btn.disabled = false
+                btn.value = "Send" 
+                }else{
+                     err.innerHTML = `<div class="alert alert-danger alert-dismissable">There was an error processing your request please try again</div>`
+                btn.disabled = false
+                btn.value = "Send"
+                }
+            }
+        })
+    }
+    </script>
+</body>

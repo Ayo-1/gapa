@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Rubik:300,400,400i,500,600,700' rel='stylesheet' type='text/css'>   
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <title><%= title %></title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    
+    <link href="https://nightly.datatables.net/responsive/css/responsive.dataTables.css?_=0733d80df58ca2854b640850303e9ae6.css" rel="stylesheet" type="text/css" />
+    <style>
+    *, p, h1, h2, h3, h4, h5, h6, button, body, span,  {
+        font-family: "Rubik", sans-serif;
+    }
+        body {
+    background-color: #eee
+}
+
+.card {
+    border: none;
+    width: 400px
+}
+
+.dots {
+    position: absolute;
+    height: 17px;
+    width: 17px;
+    background-color: red;
+    border-radius: 50%;
+    bottom: 24px;
+    right: 143px;
+    font-size: 10px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+            font-family: "Rubik", sans-serif;
+}
+
+.earn-text {
+    font-size: 18px;
+    font-family: "Rubik", sans-serif;
+}
+
+.form-contr {
+    height: 60px;
+    font-size: 20px;
+    font-family: "Rubik", sans-serif;
+    width: 80%;
+}
+
+.btn {
+    font-size: 23px,
+    background-color: #4c4892!important;
+    font-family: "Rubik", sans-serif;    
+}
+
+.form-contr:focus {
+    box-shadow: none;
+    border: 1px solid #dc3545
+}
+
+.email-text {
+    font-size: 20px
+}
+
+a {
+    color: #4c4892
+}
+
+a:hover {
+    color: #4c4892
+}
+
+#code {
+    position: absolute;
+    margin-left: -9999px;
+}
+    </style>
+  </head>
+  <body>
+  
+  <div class="container-fluid mt-5 mb-5 d-flex justify-content-center">
+    <div class="col-xl-7 p-3 text-center" style="margin-top: 30px;background: #fff;max-">
+        <a href="/" class="my-2" style="margin-left: -80%;"><i class="fa fa-home fa-3x float-right"></i></a>
+        <div class="position-relative"> <img src="<%= user.img_url %>" class="img-responsive rounded-circle mt-4" height="140px;"> </div>
+        <div>
+            <h5>Invite & Earn</h5> <span class="earn-text">Earn points for inviting users to signup using your referral code and shop for <br> auto parts</span>
+        </div>
+        <div class="px-3 mt-2">
+        <h2 class="text-center"><%= user.bal %> Points</h2>
+        
+        <% if(user.bal > 20){ %>
+        <button class="btn btn-success" style="background-color: #4c4892!important;" data-bs-toggle="modal" data-bs-target="#bs-example-modal-sm">WITHDRAW</button>
+        <div class="modal fade" id="bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            			<form onsubmit="sub(event)" class="row account-register clearfix">
+					<fieldset id="account">
+						<legend>Your Personal Details</legend>
+	<div class="form-group required my-2">
+							<label class="control" for="ref" style="float: left!important; margin-bottom: 5px;">Points</label>
+							<div class="">
+								<input type="number" min="0" placeholder="Points to withdraw" id="points" oninput="change('<%= settings[0].points || 0 %>')" class="form-control" >
+							</div>
+						</div>
+							<div class="form-group required my-2">
+							<label class="control" for="ref" style="float: left!important; margin-bottom: 5px;">AMOUNT NGN</label>
+							<div class="">
+								<input type="text" placeholder="AMOUNT TO RECEIVE" id="amount" class="form-control" disabled>
+							</div>
+						</div>
+						<div class="form-group required my-2">
+							<label class="control-label" for="fname" style="float: left!important; margin-bottom: 5px;">Bank Name</label>
+							<div class="">
+							
+							 <select class="form-control py-3" id="bname" required>
+                                                    <option value="044">Access Bank Plc</option>
+                                                    <option value="063">Access Bank Plc (Diamond)</option>
+                                                    <option value="050">Ecobank Nigeria</option>
+                                                    <option value="084">Enterprise Bank Plc</option>
+                                                    <option value="070">Fidelity Bank Plc</option>
+                                                    <option value="011">First Bank of Nigeria Plc</option>
+                                                    <option value="214">First City Monument Bank</option>
+                                                    <option value="058">Guaranty Trust Bank Plc</option>
+                                                    <option value="030">Heritage Bank</option>
+                                                    <option value="082">Keystone Bank Ltd</option>
+                                                    <option value="014">Mainstreet Bank Plc	</option>
+                                                    <option value="076">Skye Bank</option>
+                                                    <option value="221">Stanbic IBTC Plc</option>
+                                                    <option value="232">Sterling Bank Plc</option>
+                                                    <option value="032">Union Bank Nigeria Plc</option>
+                                                    <option value="033">United Bank for Africa Plc</option>
+                                                    <option value="215">Unity Bank Plc</option>
+                                                    <option value="035">WEMA Bank Plc</option>
+                                                    <option value="057">Zenith Bank</option>
+                        </select>
+							</div>
+						</div>
+						<div class="form-group required my-2">
+							<label class="control-label" for="lname" style="float: left!important; margin-bottom: 5px;">Account Number</label>
+							<div class="">
+								<input type="text" name="acct" value="" placeholder="Account Number" id="acct" oninput="query()" class="form-control" required>
+							</div>
+						</div>
+						<div class="form-group required my-2">
+							<label class="control-label" for="input-email" style="float: left!important; margin-bottom: 5px;">Account Name</label>
+							<div class="">
+								<input type="text" name="acctname" value="" placeholder="Account Name" id="acctname" class="form-control" required>
+							</div>
+						</div>
+						<p id="err_acct" class="small mt-2 text-danger"></p>
+						
+</div>
+    <div class="modal-footer">
+       <button class="btn" data-bs-dismiss="modal" aria-hidden="true">Close</button>
+        <button class="btn btn-primary" id="btt" type="submit">Submit</button></form>
+      </div>
+    
+    </div>
+  </div>
+</div>
+        <% } %>
+        </div>
+        <input type="text" id="code" value="<%= user.referral_code %>">
+        <div class="px-3 mt-2 d-flex gap-1"> <input class="form-contr form-control" type="text" value="<%= user.referral_code %>" disabled> <button onclick="copy()" class="btn btn-success" style="flex: 4; background-color: #4c4892!important;"><i class="fa fa-clone"></i></button> </div>
+
+        <h3 class="mt-3 mb-3">Withdrawal Requests</h3>
+        <% if(withdraws.length > 0){ %>
+        <div style="width: 95%;">        <table id="example" class="table table-responsive table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>POINTS</th>
+                <th>AMOUNT</th>
+                <th>Status</th>
+                <th>Bank Name</th>
+                <th>Account </th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+                <% withdraws.forEach(withdraw => { %> 
+                 <tr>
+                <td><%= withdraw.points %></td>
+                <td><%= withdraw.amount %></td>
+                <td><% if(withdraw.status == "pending"){ %><span class="badge bg-warning"><%= withdraw.status %></span> <% }else if(withdraw.status == "declined"){ %><span class="badge bg-danger"><%= withdraw.status %></span> <% } else if(withdraw.status == "success") { %><span class="badge bg-success"><%= withdraw.status %></span> <% } %></td>
+                <td><%= withdraw.bank %></td>
+                <td style="font-size: 10px;"><%= withdraw.account_no %><br /><%= withdraw.account_name %></td>
+                <td><%= moment(withdraw.createdAt).format("LL") %></td> 
+                </tr>
+                <% }) %>
+                
+           
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>POINTS</th>
+                <th>AMOUNT</th>
+                <th>Status</th>
+                <th>Bank Name</th>
+                <th>Account </th>
+                <th>Date</th>
+            </tr>
+        </tfoot>
+    </table></div>
+
+        <% } else { %>
+        <center class="mb-4">
+            <img src="/undraw_referral_4ki4.svg" height="100px" class="mt-3" />
+            
+            <p class="mt-3 mb-5">no withdrawals yet</p>
+        </center>
+        <% } %>
+    </div>
+</div>
+
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>	
+<!--<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>-->
+
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://nightly.datatables.net/responsive/js/dataTables.responsive.js?_=0733d80df58ca2854b640850303e9ae6"></script>
+<script>
+        function copy() {
+    var input = document.getElementById('code');
+    // input.setAttribute('value', text);
+    // document.body.appendChild(input);
+    input.select();
+    var result = document.execCommand('copy');
+    alert("copied")
+    return result;
+ }
+ const change = (data) => {
+     if(document.getElementById("points").value == ""){
+       return document.getElementById("amount").value = ""  
+     }
+     var num = parseFloat(data)
+     var nm = parseInt(document.getElementById("points").value) * num
+     console.log(nm)
+     document.getElementById("amount").value = "NGN "+ nm
+ }
+     const sub = (event) => {
+        event.preventDefault()
+        var btn = document.getElementById("btt")
+        btn.innerHTML = "loading..."
+        btn.disabled = true
+        axios.post("/request-withdrawal", { 
+            name: document.getElementById("acctname").value,
+            acct: document.getElementById("acct").value,
+            points: document.getElementById("points").value,
+            bank_name: document.getElementById("bname").value,
+            amount: document.getElementById("amount").value
+        }).then(res => {
+            if(res.data.message){
+                $.alert(res.data.message)
+                location.reload()
+                btn.innerHTML = "Submit"
+                btn.disabled = false
+            }else if(res.data.error) {
+                $.alert(res.data.error)
+                btn.innerHTML = "Submit"
+                btn.disabled = false
+            }
+        }).catch(err => {
+            if(err){
+                if(err.response){
+                    console.log(err.response)
+                 $.alert(err.response.data.error)
+                btn.innerHTML = "Submit"
+                btn.disabled = false                 
+                }else {
+                    $.alert("There was an error processing your request")
+                btn.innerHTML = "Submit"
+                btn.disabled = false                    
+                }
+            }
+        })
+    }
+       const query = () => {
+        
+   var acct = document.getElementById("acct").value
+   if(acct.length == 10){
+   var code = document.getElementById("bname").value
+   if(document.getElementById("acct").value == ""){
+       document.getElementById("err_acct").innerHTML = "Account Number is required"
+   }
+    else if(document.getElementById("bname").value == ""){
+       document.getElementById("err_acct").innerHTML = "Please Select Your Bank"
+   }
+   else{
+       
+   axios.get(`https://api.paystack.co/bank/resolve?account_number=${acct}&bank_code=${code}`, {
+  headers: {
+    'Authorization': 'Bearer sk_test_f1f43658b3371852e325b8cecf025a9319361715'
+  }
+}).then(data => {
+    if(data.status == 200){
+    document.getElementById("acctname").value = data.data.data.account_name
+    document.getElementById("acctname").disabled = true
+     document.getElementById("err_acct").innerHTML = ""
+    }
+    
+    else{
+         document.getElementById("err_acct").innerHTML = "There was an error finding your account, please ensure you entered the correct details"
+    }
+    
+}).catch(err => {
+    if(err){
+           document.getElementById("err_acct").innerHTML = "There was an error finding your account, please ensure you entered the correct details"
+    }
+}
+)
+
+}
+}
+   
+    }
+    
+  $(document).ready(function() {
+  function format(api, rowIdx, columns) {
+    var data = $.map(columns, function(col, i) {
+      return col.hidden ?
+        '<tr data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '">' +
+        '<td><b>' + col.title + '</b></td> ' +
+        '<td>' + col.data + '</td>' +
+        '</tr>' :
+        '';
+    }).join('');
+    return data ? '<div class="slider"><table>' + data + '</table></div>' : undefined;
+  }
+ $('#example').DataTable({
+    ordering: false,
+    order: [],
+    responsive: {
+      details: {
+        renderer: function(api, rowIdx, columns) {
+          var data = format(api, rowIdx, columns);
+          return data ?
+            data :
+            false;
+        },
+        display: function(row, update, render) {
+          console.log(update);
+          if (update) {
+            if ($(row.node()).hasClass('parent')) {
+              row.child(render(), 'child').show();
+              $('div.slider', row.child()).slideDown(0);
+              return true;
+            }
+          } else {
+            if (!row.child.isShown()) {
+              row.child(render(), 'child').show();
+              $(row.node()).addClass('parent shown');
+              $('div.slider', row.child()).slideDown();
+
+              return true;
+            } else {
+              $('div.slider', row.child()).slideUp(function() {
+                row.child(false);
+                $(row.node()).removeClass('parent shown');
+              });
+
+              return false;
+            }
+          }
+
+        }
+      }
+    }
+  });
+  
+} );
+    </script>
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

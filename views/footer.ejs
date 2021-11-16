@@ -1,0 +1,214 @@
+<style>
+    /*.modtitle {*/
+    /*    color: #000!important;*/
+    /*}*/
+    .typefooter-6 .footer-middle {
+    padding-top: 25px;
+    padding-bottom: 10px;
+}
+
+.typefooter-6 {
+    background-size: cover;
+}
+.typefooter-6 .box-infos .list-icon li {
+    margin-bottom: 5px;
+}
+.typefooter-6 .module .modtitle {
+    font-size: 15px;
+}
+</style>
+    <!-- Footer Container -->
+    <footer class="footer-container typefooter-6">
+        <!-- Footer middle Container -->
+        <div class="container">
+            <div class="row footer-middle">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-style">
+                    <div class="box-footer box-infos">
+                        <div class="module">
+                            <h3 class="modtitle">Contact us</h3>
+                            <div class="modcontent">
+                                <ul class="list-icon">
+                                    <% if(settings.length > 0){ %>
+                                    <li style="font-size: 13px!important;"><span class="icon pe-7s-map-marker"></span><%= settings[0].address %></li>
+                                    <li style="font-size: 13px!important;"><span class="icon pe-7s-call"></span> <a href="#"><%= settings[0].phone_1 %> - <%= settings[0].phone_2 %></a></li>
+                                    <li style="font-size: 13px!important;"><span class="icon pe-7s-mail"></span><a href="mailto:<%= settings[0].email %>"><%= settings[0].email %></a></li>
+                                    <li style="font-size: 12px!important;"><span class="icon pe-7s-alarm"></span><%= settings[0].hours %></li>
+                                    <% } %>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 col-style">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-style">
+                            <div class="box-information box-footer">
+                                <div class="module clearfix">
+                                    <h3 class="modtitle">Information</h3>
+                                    <div class="modcontent">
+                                        <ul class="menu">
+                                            <li><a href="about-us">About Us</a></li>
+                                            <li><a href="#">FAQ</a></li>
+                                            <li><a href="/terms">Terms and Conditions</a></li>
+                                            <li><a href="/privacy-policy">Privacy Policy</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-style">
+                            <div class="box-account box-footer">
+                                <div class="module clearfix">
+                                    <h3 class="modtitle">My Account</h3>
+                                    <div class="modcontent">
+                                        <ul class="menu">
+                                            <li><a href="/account">My Account</a></li>
+                                            <li><a href="/cart">My Cart</a></li>
+                                            <li><a href="/wishlist">Wishlist</a></li>
+                                            <li><a href="/orders">Order History</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-clear">
+                            <div class="box-service box-footer">
+                              <div class="module clearfix">
+                                <h3 class="modtitle">Categories</h3>
+                                <div class="modcontent">
+                                  <ul class="menu">
+                                    <% categories.forEach((cat, id) => { %>
+                                    <% if(id < 5) {%>
+                                          <li><a href="/category/<%= cat.slug %>"><%= cat.title %></a></li>
+                                          <% } %>
+                                    <% }) %>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 col-clear">
+                       <div class="module -footer1">
+                            <div class="newsletter">
+                                <h3 class="modtitle">NEWSLETTER</h3>
+                                <div class="">
+                                    <form onsubmit="sub_mail(event)" id="signup" name="signup" class="form-group signup send-mail">
+                                        <div class="form-group">
+                                        <div class="input-group">
+                                          <input type="email" class="form-control" id="join-email" placeholder="Your Email" style="border-radius: 0; padding-top: 20px; padding-bottom: 20px;" required>
+                                          <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-outline-secondary default-btn" style="background: #4c4892; color: #fff;border-radius: 0; padding-top: 10px; padding-bottom: 10px;" type="button"><i class="fa fa-arrow-right"></i></button>
+                                          </span>
+                                        </div>
+                                                                            
+                                        </div>
+                                        <div class="">
+                                    <label class="checkbox-sb" style="display: flex;">
+                                        <input data-event-tracking="Checkbox_subscribe" name="gdpr_agreement_email" type="checkbox" value="1" class="helper-border" required>
+                                        <p  style="font-size: 15px!important; padding-left: 5px; margin-top: -2px; text-align: right;"> Yes, I want to receive email newsletters.</p>
+                                    </label>
+                                   
+                                </div>
+                                                </form>
+                                </div>     
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+       
+        <!-- /Footer middle Container -->
+        <!-- Footer Bottom Container -->
+        <div class="footer-bottom" style="padding: 7px 0px 5px 0px;background: #fff;">        
+            <div class="container">
+                <div class="row">
+                    <div class="copyright col-lg-8 col-md-8 col-sm-12 col-xs-12" style="color: #000">
+                        <p>GAPA NAIJA © 2021 All Rights Reserved. Designed by <a href="https://silexsecure.com/" target="_blank" style="color: #4c4892;">Silexsecure Lab</a></p>
+                    </div>                 
+                    <div class="payment-w col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <img src="/visamasterverve.png" style="height: 20px;margin-top: 8px;" alt="imgpayment">
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <!-- /Footer Bottom Container -->
+        
+        
+            <!--Back To Top-->
+        <div class="back-to-top"><i class="fa fa-angle-up"></i></div>
+    </footer>
+    <!-- //end Footer Container -->
+
+    </div>
+   
+
+<!-- End Color Scheme
+============================================ -->
+
+
+
+<!-- Include Libs & Plugins
+============================================ -->
+<!-- Placed at the end of the document so the pages load faster -->
+<!--<script type="text/javascript" src="/js/jquery-2.2.4.min.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/owl-carousel/owl.carousel.js"></script>
+<script type="text/javascript" src="/js/slick-slider/slick.js"></script>
+<script type="text/javascript" src="/js/themejs/libs.js"></script>
+<script type="text/javascript" src="/js/unveil/jquery.unveil.js"></script>
+<script type="text/javascript" src="/js/countdown/jquery.countdown.min.js"></script>
+<script type="text/javascript" src="/js/dcjqaccordion/jquery.dcjqaccordion.2.8.min.js"></script>
+<script type="text/javascript" src="/js/datetimepicker/moment.js"></script>
+<script type="text/javascript" src="/js/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="/js/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/modernizr/modernizr-2.6.2.min.js"></script>
+<script type="text/javascript" src="/js/minicolors/jquery.miniColors.min.js"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<script type="text/javascript" src="/js/lightslider/lightslider.js"></script>
+
+<!-- Theme files
+============================================ -->
+
+<script type="text/javascript" src="/js/themejs/application.js"></script>
+
+<script type="text/javascript" src="/js/themejs/home.js"></script>
+
+<script type="text/javascript" src="/js/themejs/toppanel.js"></script>
+<script type="text/javascript" src="/js/themejs/so_megamenu.js"></script>
+<script type="text/javascript" src="/js/themejs/addtocart.js"></script>  
+
+<!-- <script type="text/javascript" src="/js/themejs/cpanel.js"></script> -->
+
+<script>
+        	     const sub_mail = (event) => {
+     	         event.preventDefault()
+     axios.post("/join-mailing", {
+       email: document.getElementById("join-email").value,
+     }).then(res => {
+         if(res.data.message){
+             $.alert(res.data.message);
+             document.getElementById("join-email").value = ""
+         }
+                           else if(res.data.error){
+             $.alert(res.data.error)
+         }
+     }).catch(err => {
+                if(err){
+                    if(err.response){
+                        $.alert(err.response.data.error);
+                    }else {
+                        $.alert("There was an error with your request");
+                    }
+                }
+            })
+ }
+</script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<%- include("header_auth") %>
+
+  
+	<!-- Main Container  -->
+	<div class="main-container container">
+		<ul class="breadcrumb">
+			<li><a href="#"><i class="fa fa-home"></i></a></li>
+			<li><a href="#">Account</a></li>
+			<li><a href="#">Verify Account</a></li>
+		</ul>
+		
+		<div class="row">
+			<div id="content" class="col-sm-12">
+				<div class="page-login">
+				
+					<div class="account-border">
+						<div class="row">
+							
+							<form onsubmit="sub(event)">
+								<div class="mx-auto col-sm-6 customer-login">
+									<div class="well">
+										<h2><i class="fa fa-file-text-o" aria-hidden="true"></i> Verify Account</h2>
+										<p><strong>check your email for a verification token</strong></p>
+										<div class="form-group">
+											<label class="control-label " for="input-password">Token</label>
+											<input type="password" name="password" value="" id="token" class="form-control" />
+										</div>
+										<div class="form-group" id="err">
+										</div>
+									</div>
+									<div class="bottom-form">
+										<input type="submit" value="Verify Account" id="btn" class="btn btn-default pull-right" />
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //Main Container -->
+
+<%- include("footer_auth") %>
+<script>
+    const sub = (event) => {
+        event.preventDefault();
+        var btn = document.getElementById("btn")
+        var err = document.getElementById("err")
+        var tok = document.getElementById("token").value
+        btn.disabled = true
+        btn.value = "Loading..."
+        err.innerHTML = ""
+        axios.post("/verify<% if(ref){ %>?ref=<%= ref %><% } %>", {
+            tok,
+        }).then(data => {
+            if(data.data.message){
+                err.innerHTML = `<div class="alert alert-success alert-dismissable">${data.data.message}</div>`
+                btn.disabled = false
+                btn.value = "Verify Account"
+                location.href = data.data.path
+            }else if(data.data.error) {
+                 err.innerHTML = `<div class="alert alert-danger alert-dismissable">${data.data.error}</div>`
+                btn.disabled = false
+                btn.value = "Verify Account"
+            }
+        }).catch(er => {
+            if(er){
+                if(er.response){
+                    err.innerHTML = `<div class="alert alert-danger alert-dismissable">${er.response.data.error}</div>`
+                btn.disabled = false
+                btn.value = "Verify Account" 
+                }else{
+                     err.innerHTML = `<div class="alert alert-danger alert-dismissable">There was an error processing your request please try again</div>`
+                btn.disabled = false
+                btn.value = "Verify Account"
+                }
+            }
+        })
+        }
+</script>

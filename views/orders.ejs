@@ -1,0 +1,104 @@
+<%- include("header_auth") %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css" integrity="sha512-QmxybGIvkSI8+CGxkt5JAcGOKIzHDqBMs/hdemwisj4EeGLMXxCm9h8YgoCwIvndnuN1NdZxT4pdsesLXSaKaA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<!-- Main Container  -->
+	<div class="main-container container">
+		<ul class="breadcrumb">
+			<li><a href="#"><i class="fa fa-home"></i></a></li>
+			<li><a href="#">Order History</a></li>
+		</ul>
+		
+		<div class="row">
+			<!--Middle Part Start-->
+			<div id="content" class="col-sm-9">
+				<h2 class="title">Order History</h2>
+				<div class="table-responsive" id="main">
+					<table class="table table-bordered table-hover">
+						<thead>
+							<tr>
+								<td class="text-center">Order ID</td>
+								<td class="text-center">Status</td>
+								<td class="text-center">Date Added</td>
+								<td class="text-right">Total</td>
+								<td></td>
+							</tr>
+						</thead>
+						<tbody id="orders">
+						 <!--   <% orders.forEach(order => { %>-->
+						    
+							<!--<tr>-->
+							<!--	<td class="text-center">#<%= order.id %></td>-->
+							<!--	<td class="text-center"><%= order.status %></td>-->
+							<!--	<td class="text-center"><%= moment(order.createdAt).format('L') %></td>-->
+							<!--	<td class="text-right"><%- cur %> <%= order.total_paid %></td>-->
+							<!--	<td class="text-center"><a class="btn btn-info" href="/orders/<%= order.id %>"><i class="fa fa-eye"></i></a>-->
+							<!--	</td>-->
+							<!--</tr>-->
+						 <!--   <% }) %>-->
+						</tbody>
+					</table>
+					 <!--<div class="box-pagination col-md-3 col-sm-4 col-xs-12 text-right">-->
+      <!--                          <ul class="pagination">-->
+      <!--                              <li class="active"><span>1</span></li>-->
+      <!--                              <li><a href="">2</a></li><li><a href="">&gt;</a></li>-->
+      <!--                              <li><a href="">&gt;|</a></li>-->
+      <!--                          </ul>-->
+      <!--                      </div> -->
+				</div>
+
+			</div>
+			<!--Middle Part End-->
+			<!--Right Part Start -->
+			<aside class="col-sm-3 hidden-xs content-aside col-md-3" id="column-right">
+				<h2 class="subtitle">Account</h2>
+<div class="list-group">
+	<ul class="list-item">
+			<li><a href="/account">My Account</a>
+						</li>
+						<li><a href="/wishlist">Wish List</a>
+						</li>
+						<li><a href="/orders">Order History</a>
+						</li>
+						
+						<li><a href="#">Reward Points</a>
+						</li>
+	</ul>
+</div>			</aside>
+			<!--Right Part End -->
+		</div>
+	</div>
+	<!-- //Main Container -->
+	
+
+<%- include("footer_auth") %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js" integrity="sha512-1zzZ0ynR2KXnFskJ1C2s+7TIEewmkB2y+5o/+ahF7mwNj9n3PnzARpqalvtjSbUETwx6yuxP5AJXZCpnjEJkQw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    $('#main').pagination({
+    dataSource: <%- JSON.stringify(orders) %>,
+    callback: function(data, pagination) {
+        console.log(data, pagination)
+        // template method of yourself
+        var html = ''
+        data.map(dat => {
+            if(dat.status == "pending"){
+                var status = `<span class="label label-danger">Pending</span>`
+            }
+            if(dat.status == "shipping"){
+                var status = `<span class="label label-warning">On Going</span>`
+            }
+            if(dat.status == "verified"){
+                var status = `<span class="label label-success">Complete</span>`
+            }            
+            html += `<tr>
+			<td class="text-center">#${dat.id}</td>
+			<td class="text-center">${status}</td>
+			<td class="text-center">${moment(dat.createdAt).format('L')}</td>
+			<td class="text-right"><%- cur %> ${dat.total_paid}</td>
+			<td class="text-center"><a class="btn btn-info" href="/orders/${dat.id}"><i class="fa fa-eye"></i></a>
+			</td>
+		</tr>`
+        })
+        $('#orders').html(html);
+    }
+})
+</script>

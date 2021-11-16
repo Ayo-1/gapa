@@ -1,0 +1,584 @@
+<%- include("header_auth") %>
+<style>
+@media screen {
+  #printSection {
+      display: none;
+  }
+}
+
+@media print {
+  body * {
+    visibility:hidden;
+  }
+  #printSection, #printSection * {
+    visibility:visible;
+  }
+  #printSection {
+    position:absolute;
+    left:0;
+    top:0;
+  }
+}
+
+
+#inv td {
+    vertical-align: top;
+}
+
+/* -------------------------------------
+    BODY & CONTAINER
+------------------------------------- */
+
+.body-wrap {
+    background-color: #f6f6f6;
+    width: 100%;
+}
+#inv .container {
+    display: block !important;
+    max-width: 600px !important;
+    margin: 0 auto !important;
+    /* makes it centered */
+    clear: both !important;
+}
+.content {
+    max-width: 600px;
+    margin: 0 auto;
+    display: block;
+    padding: 20px;
+}
+
+/* -------------------------------------
+    HEADER, FOOTER, MAIN
+------------------------------------- */
+#inv .main {
+    background: #fff;
+    border: 1px solid #e9e9e9;
+    border-radius: 3px;
+}
+
+#inv .content-wrap {
+    padding: 20px;
+}
+
+#inv .content-block {
+    padding: 0 0 20px;
+}
+
+#inv .header {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#inv .footer {
+    width: 100%;
+    clear: both;
+    color: #999;
+    padding: 20px;
+}
+#inv .footer a {
+    color: #999;
+}
+#inv .footer p, .footer a, .footer unsubscribe, .footer td {
+    font-size: 12px;
+}
+
+/* -------------------------------------
+    TYPOGRAPHY
+------------------------------------- */
+#inv h1, h2, h3 {
+    font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    color: #000;
+    margin: 40px 0 0;
+    line-height: 1.2;
+    font-weight: 400;
+}
+
+#inv h1 {
+    font-size: 32px;
+    font-weight: 500;
+}
+
+#inv h2 {
+    font-size: 24px;
+}
+
+#inv h3 {
+    font-size: 18px;
+}
+
+#inv h4 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#inv p,#inv ul,#inv ol {
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+#inv p li, #inv ul li, #inv ol li {
+    margin-left: 5px;
+    list-style-position: inside;
+}
+
+/* -------------------------------------
+    LINKS & BUTTONS
+------------------------------------- */
+#inv a {
+    color: #1ab394;
+    text-decoration: underline;
+}
+
+#inv .btn-primary {
+    text-decoration: none;
+    color: #FFF;
+    background-color: #1ab394;
+    border: solid #1ab394;
+    border-width: 5px 10px;
+    line-height: 2;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 5px;
+    text-transform: capitalize;
+}
+
+/* -------------------------------------
+    OTHER STYLES THAT MIGHT BE USEFUL
+------------------------------------- */
+#inv .last {
+    margin-bottom: 0;
+}
+
+#inv .first {
+    margin-top: 0;
+}
+
+#inv .aligncenter {
+    text-align: center;
+}
+
+#inv .alignright {
+    text-align: right;
+}
+
+#inv .alignleft {
+    text-align: left;
+}
+
+#inv .clear {
+    clear: both;
+}
+
+/* -------------------------------------
+    ALERTS
+    Change the class depending on warning email, good email or bad email
+------------------------------------- */
+#inv .alert {
+    font-size: 16px;
+    color: #fff;
+    font-weight: 500;
+    padding: 20px;
+    text-align: center;
+    border-radius: 3px 3px 0 0;
+}
+#inv .alert a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+}
+#inv .alert.alert-warning {
+    background: #f8ac59;
+}
+#inv .alert.alert-bad {
+    background: #ed5565;
+}
+#inv .alert.alert-good {
+    background: #1ab394;
+}
+
+/* -------------------------------------
+    INVOICE
+    Styles for the billing table
+------------------------------------- */
+#inv .invoice {
+    margin: 40px auto;
+    text-align: left;
+    width: 80%;
+}
+#inv .invoice td {
+    padding: 5px 0;
+}
+#inv .invoice .invoice-items {
+    width: 100%;
+}
+#inv .invoice .invoice-items td {
+    border-top: #eee 1px solid;
+}
+#inv .invoice .invoice-items .total td {
+    border-top: 2px solid #333;
+    border-bottom: 2px solid #333;
+    font-weight: 700;
+}
+
+/* -------------------------------------
+    RESPONSIVE AND MOBILE FRIENDLY STYLES
+------------------------------------- */
+@media only screen and (max-width: 640px) {
+    #inv h1, h2, h3, h4 {
+        font-weight: 600 !important;
+        margin: 20px 0 5px !important;
+    }
+
+    #inv h1 {
+        font-size: 22px !important;
+    }
+
+    #inv h2 {
+        font-size: 18px !important;
+    }
+
+    #inv h3 {
+        font-size: 16px !important;
+    }
+
+    #inv .container {
+        width: 100% !important;
+    }
+
+    #inv .content, .content-wrap {
+        padding: 10px !important;
+    }
+
+    #inv .invoice {
+        width: 100% !important;
+    }
+}
+</style>
+
+	<!-- Main Container  -->
+	<div class="main-container container">
+		<ul class="breadcrumb">
+			<li><a href="#"><i class="fa fa-home"></i></a></li>
+			<li><a href="#">Order Infomation</a></li>
+		</ul>
+		
+		<div class="row">
+			<!--Middle Part Start-->
+			<div id="content" class="col-sm-9">
+				<h2 class="title">Order Information</h2>
+
+				<table class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<td colspan="2" class="text-left">Order Details</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td style="width: 50%;" class="text-left"> <b>Order ID:</b> #<%= order.id %>
+								<br>
+								<b>Date Added:</b> <%= moment(order.createdAt).format("L") %></td>
+							<td style="width: 50%;" class="text-left"> <b>Payment Method:</b> Online
+								<br>
+								<b>Delivery Type:</b> <%= order.type %> </td>
+						</tr>
+					</tbody>
+				</table>
+				<% if(order.type == "delivery"){ %>
+				<table class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<td style="width: 50%; vertical-align: top;" class="text-left">Payment Address</td>
+							<td style="width: 50%; vertical-align: top;" class="text-left">Shipping Address</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="text-left">
+							    <%= order.delivery_address %>
+							    <br />
+							    <%= order.state %>
+							    <br />
+							    NIGERIA
+							</td>
+							<td class="text-left">
+							    <%= order.delivery_address %>
+							    <br />
+							    <%= order.state %>
+							    <br />
+							    NIGERIA
+							    </td>
+						</tr>
+					</tbody>
+				</table>
+				<% } %>
+				<div class="table-responsive">
+                <table class="table table-bordered">
+								<thead>
+								<tr>
+                                <td class="text-center">Image</td>
+                                <td class="text-left">Product Name</td>
+                                <td class="text-left">Car Details</td>
+                                <td class="text-left">Quantity</td>
+                                <td class="text-right">Unit Price</td>
+                                <td class="text-right">Total</td>
+								  </tr>
+								</thead>
+                                <tbody>
+                                    <% var ship = 0
+                                    var sub = 0
+                                    var total = 0 %>
+                               <% order.items.forEach(item => { %>
+                               <% 
+                                const get_discount = (price, dis) => {
+                                var d1 = price * dis
+                                return Math.floor(d1/100)
+                                }
+                                %>
+                               <%   var price = item.part.discount > 0? item.part.price - get_discount(parseInt(item.part.price), item.part.discount) : item.price
+                                   
+                                    var qty = parseInt(item.quantity)
+                                    sub += parseInt(price) * qty
+                                 %>
+                                <tr>
+                                <td class="text-center"><a href="/parts/<%= item.part.id %>"><img width="70px" src="<%= item.part.img_url %>" alt="<%= item.part.name %>" title="<%= item.part.name %>" class="img-thumbnail"></a></td>
+                                <td class="text-left"><a href="/parts/<%= item.part.id %>"><%= item.part.name %></a><br>
+                                 </td>
+                                <td class="text-left"><%= item.part.model.name %> <%= item.part.model.car.brand.name %></td>
+                                <td class="text-left" width="100px"><%= qty %></td>
+                                <td class="text-right"><%- cur %><%= price %></td>
+                                <td class="text-right"><%- cur %> <%= price * qty %></td>
+                              </tr>
+                               <% total = sub + parseInt(order.shipping_cost) %>
+                               <% }) %>
+                                </tbody>
+								<tfoot>
+								<tr>
+    							<td class="text-right"  colspan="3">
+    								<strong>Sub-Total:</strong>
+    							</td>
+    							
+    							<td class="text-right" id="sub" colspan="7"><%- cur %> <%= sub %></td>
+        						</tr>
+        						<!--<tr>-->
+        						<!--	<td class="text-right">-->
+        						<!--		<strong>Flat Shipping Rate:</strong>-->
+        						<!--	</td>-->
+        						<!--	<td class="text-right">$4.69</td>-->
+        						<!--</tr>-->
+        						<!--<tr>-->
+        						<!--	<td class="text-right">-->
+        						<!--		<strong>Eco Tax (-2.00):</strong>-->
+        						<!--	</td>-->
+        						<!--	<td class="text-right">$5.62</td>-->
+        						<!--</tr>-->
+        						<tr>
+        							<td class="text-right" colspan="3">
+        								<strong>Shipping:</strong>
+        							</td>
+        							<td class="text-right" id="ship" colspan="8"><%- cur %> <%= order.shipping_cost %></td>
+        						</tr>
+        						<tr>
+        							<td class="text-right" colspan="3">
+        								<strong>Total:</strong>
+        							</td>
+        							<td class="text-right" id="total" colspan="8"><%- cur %> <%= sub + parseInt(order.shipping_cost) %></td>
+        						</tr>
+								</tfoot>
+							  </table>
+				</div>
+				<h3>Order History</h3>
+				<table class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<td class="text-left">Date Added</td>
+							<td class="text-left">Status</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="text-left"><%= moment(order.updatedAt).format("LL") %></td>
+							<td class="text-left text-capitalize"><%= order.status %></td>
+						</tr>
+						<!--<tr>-->
+						<!--	<td class="text-left">21/06/2016</td>-->
+						<!--	<td class="text-left">Shipped</td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+						<!--	<td class="text-left">24/06/2016</td>-->
+						<!--	<td class="text-left">Complete</td>-->
+						<!--</tr>-->
+					</tbody>
+				</table>
+				<div class="buttons clearfix">
+				    <% if(order.type == "pickup" && order.status !== "verified"){ %>
+					<div class="pull-right"><a class="btn btn-primary" href="#" data-toggle="modal" data-target="#bs-example-modal-sm">Print Pickup Invoice</a>
+					<% } %>
+				    <% if(order.status == "verified"){ %>
+					<div class="pull-right"><a class="btn btn-primary" href="#" data-toggle="modal" data-target="#bs-example-modal-sm">Print Receipt</a>
+					<% } %>
+					</div>
+				</div>
+
+<div id="printThis">
+<div class="modal fade" id="bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+    <table class="body-wrap" id="inv">
+    <tbody><tr>
+        <td></td>
+        <td class="container" width="600">
+            <div class="content">
+                <table class="main" width="100%" cellpadding="0" cellspacing="0">
+                    <tbody><tr>
+                        <td class="content-wrap aligncenter">
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tbody><tr>
+                                    <td class="content-block">
+                                        <h2>GAPANAIJA</h2>
+                                        <% if(order.type == "pickup"){ %>
+                                        <% if(order.status == "verified"){ %>
+                                        <p>Reciept</p>
+                                        <% }else { %>
+                                        <p>Pickup Invoice</p>
+                                        <% } %>
+                                        <% } else { %>
+                                         <% if(order.status == "verified"){ %>
+                                        <p>Reciept</p>
+                                        <% } else { %>
+                                        <% } %>
+                                        <% } %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="content-block">
+                                        <table class="invoice">
+                                            <tbody><tr>
+                                                <td><%= user.firstName %> <%= user.lastName %><br>Invoice #<small><b><%= order.id %></b></small><br><%= moment(order.createdAt).format("LLL") %></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <table class="invoice-items" cellpadding="0" cellspacing="0">
+                                                        <tbody>
+                                                                 <% order.items.forEach(item => { %>
+                                                                   <% 
+                                                                    const get_discount = (price, dis) => {
+                                                                    var d1 = price * dis
+                                                                    return Math.floor(d1/100)
+                                                                    }
+                                                                    %>
+                                                                   <%   var price = item.part.discount > 0? item.part.price - get_discount(parseInt(item.part.price), item.part.discount) : item.price
+                                                                       
+                                                                        var qty = parseInt(item.quantity)
+                                                                        sub += parseInt(price) * qty
+                                                                     %>
+                                                                    <tr>
+                                                                    <td class="" style="font-size: 11px;"><%= item.part.name %>/<%= item.part.model.car.brand.name %> <b style="font-size: 8px;"><%= qty %> Item(s)</b></td>
+                                                                    <td class="alignright" style="width: 50px!important;"><%- cur %> <%= price * qty %></td>
+                                                                  </tr>
+                                                        <!--           <% }) %>-->
+                                                        <!--    <tr>-->
+                                                        <!--    <td>Service 1</td>-->
+                                                        <!--    <td class="alignright">$ 20.00</td>-->
+                                                        <!--</tr>-->
+                                                        <!--<tr>-->
+                                                        <!--    <td>Service 2</td>-->
+                                                        <!--    <td class="alignright">$ 10.00</td>-->
+                                                        <!--</tr>-->
+                                                        <!--<tr>-->
+                                                        <!--    <td>Service 3</td>-->
+                                                        <!--    <td class="alignright">$ 6.00</td>-->
+                                                        <!--</tr>-->
+                                                        <tr class="total">
+                                                            <td class="" width="80%">Total</td>
+                                                            <td class="alignright"><%- cur %> <%= total %></td>
+                                                        </tr>
+                                                    </tbody></table>
+                                                </td>
+                                            </tr>
+                                        </tbody></table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="content-block">
+                                        <a href="#" id="btnPrint">PRINT INVOICE</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="content-block">
+                                        <%= settings[0].address %>
+                                    </td>
+                                </tr>
+                            </tbody></table>
+                        </td>
+                    </tr>
+                </tbody></table>
+                <div class="footer">
+                    <table width="100%">
+                        <tbody><tr>
+                            <td class="aligncenter content-block">Questions? Email <a href="mailto:support@gapaautoparts.com">support@gapaautoparts.com</a></td>
+                        </tr>
+                    </tbody></table>
+                </div></div>
+        </td>
+        <td></td>
+    </tr>
+</tbody></table>
+</div>
+    <div class="modal-footer">
+       <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+    
+    </div>
+  </div>
+</div>
+</div>
+
+			</div>
+			<!--Middle Part End-->
+			<!--Right Part Start -->
+			<aside class="col-sm-3 hidden-xs content-aside col-md-3" id="column-right">
+				<h2 class="subtitle">Account</h2>
+<div class="list-group">
+	<ul class="list-item">
+		<li><a href="/account">My Account</a>
+						</li>
+						<li><a href="/wishlist">Wish List</a>
+						</li>
+						<li><a href="/orders">Order History</a>
+						</li>
+						
+						<li><a href="#">Reward Points</a>
+						</li>
+	</ul>
+</div>			</aside>
+			<!--Right Part End -->
+		</div>
+	</div>
+	<!-- //Main Container -->
+
+<%- include("footer_auth") %>
+<script>
+    document.getElementById("btnPrint").onclick = function () {
+    printElement(document.getElementById("printThis"));
+}
+
+function printElement(elem) {
+    var domClone = elem.cloneNode(true);
+    
+    var $printSection = document.getElementById("printSection");
+    
+    if (!$printSection) {
+        var $printSection = document.createElement("div");
+        $printSection.id = "printSection";
+        document.body.appendChild($printSection);
+    }
+    
+    $printSection.innerHTML = "";
+    $printSection.appendChild(domClone);
+    window.print();
+}
+</script>

@@ -1,0 +1,70 @@
+ <%- include("header_auth") %>
+<style>
+    .cov:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    margin-top: -4px;
+    right: 20px;
+    width: 8px;
+    height: 8px;
+    border-right: 1px solid #000;
+    border-top: 1px solid #000;
+    -webkit-transform: rotate(
+45deg
+);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(
+45deg
+);
+    pointer-events: none;
+}
+
+.cov {
+    margin: 5px 2px;
+}
+
+</style>
+<div class="main-container container">
+        <ul class="breadcrumb">
+            <li><a href="#"><i class="fa fa-home"></i></a></li>
+            <li><a href="#"><%= car.name %> | <%= car.brand.name %></a></li>
+        </ul>
+                             
+        <div class="row">
+
+            <!--Middle Part Start-->
+            <div id="content" class="col-md-12 col-sm-12" style="margin-right: auto; margin-left: auto;">
+               <div class="row">
+                   <% if(models.length > 0){ %>
+                   <% models.forEach(mod => { %>
+                   <div class="cov col-md-4" style="border: 1px solid #dcdcdc; padding: 12px 0; display: flex;">
+                            <div class="image link">
+                                <img src="<%= car.img_url %>" style="flex: 1;margin-left: 10px;" width="90px"></div>
+                                <a class="full_link_p" style="flex: 2; margin-top: 15px;" href="/model/<%= mod.slug %>">
+                                <div class="name" style="padding-left: 15px;"><h2><%= car.brand.name %> | <%= car.name %></h2> <p class="model ">
+                                    <%= mod.name %>
+                                </p></div></a>   
+                               
+                   </div>
+                   <% }) %>
+                   <% }else { %>
+                   <div class="col-md-12 col-sm-12" style="margin-right: auto; margin-left: auto;">
+                   <center>
+                       <img src="/undraw_electric_car_b7hl.svg" height="150px" />
+                       
+                       <p class="m-t-20" style="margin-top: 6px;">NO Data Available</p>
+                   </center></div>
+                   <% } %>
+               </div>
+            </div>
+            
+
+            <!--Middle Part End-->
+        </div>
+    </div>
+
+<%- include("footer_auth") %>

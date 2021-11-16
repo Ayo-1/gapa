@@ -1,0 +1,20 @@
+
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION BEGIN
+PassengerAppRoot "/home/savvfwse/public_html/admin.savvysuvvy.com"
+PassengerBaseURI "/"
+PassengerNodejs "/home/savvfwse/nodevenv/public_html/admin.savvysuvvy.com/14/bin/node"
+PassengerAppType node
+PassengerStartupFile ./bin/www
+PassengerAppLogFile "/home/savvfwse/admin.log"
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION END
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION BEGIN
+PassengerAppRoot "/home/savvfwse/public_html/app"
+PassengerBaseURI "/"
+PassengerNodejs "/home/savvfwse/nodevenv/public_html/admin.savvysuvvy.com/14/bin/node"
+PassengerAppType node
+PassengerStartupFile ./bin/www
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION END
+# DO NOT REMOVE OR MODIFY. CLOUDLINUX ENV VARS CONFIGURATION BEGIN
+<IfModule Litespeed>
+</IfModule>
+# DO NOT REMOVE OR MODIFY. CLOUDLINUX ENV VARS CONFIGURATION END

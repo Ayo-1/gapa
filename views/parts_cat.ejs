@@ -1,0 +1,377 @@
+<%- include("header_auth") %>
+
+<div class="main-container container">
+        <ul class="breadcrumb">
+            <li><a href="#"><i class="fa fa-home"></i></a></li>
+            <li><a href="#">Spare Parts</a></li>
+        </ul>
+                                        <% const get_discount = (price, dis) => {
+                                var d1 = price * dis
+                                return Math.floor(d1/100)
+                                    
+                                } %>    
+        <div class="row">
+            <!--Left Part Start -->
+            <aside class="col-sm-4 col-md-3 content-aside" id="column-left">
+                            <div class="module category-style">
+                    <h3 class="modtitle">Categories</h3>
+                    <div class="modcontent">
+                        <div class="box-category">
+                            <ul id="cat_accordion" class="list-group">
+                                                               <% categories.forEach(cat => { %>
+                                <li class=""><a href="/category/<%= cat.slug %>" class="cutom-parent"><%= cat.title %></a>  <span class="dcjq-icon"></span></li>
+                                <% }) %>
+                            </ul>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+                                    <% function truncate(str, n){
+  return (str.length > n) ? str.substr(0, n-1) + '&hellip;' : str;
+}; %>
+                <div class="module product-simple">
+                    <h3 class="modtitle">
+                        <span>Latest products</span>
+                    </h3>
+                    <div class="modcontent">
+                        <div class="so-extraslider">
+                             <!--Begin extraslider-inner -->
+                            <div class="yt-content- extraslider-inner">
+                                <div class="item ">
+                                    <% newProd.forEach(item => { %>
+                                    <div class="product-layout item-inner style1 ">
+                                        <div class="item-image">
+                                            <div class="item-img-info">
+                                                <a href="/parts/<%= item.id %>" title="<%= item.name %>">
+                                                    <img src="<%= item.img_url %>" alt="<%= item.name %>">
+                                                    </a>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="item-info">
+                                            <div class="item-title">
+                                                <a href="/parts/<%= item.id %>" title="<%= item.name %>"><%= item.name %> </a>
+                                            </div>
+                                            <% var tot = 0 %>
+                                    
+                                    <% item.reviews.forEach(review => { 
+                                    tot = tot + review.rating 
+                                            }) %>
+                                    <% var rating = item.reviews.length > 0 ? tot / item.reviews.length  : 0; %>
+                                    <div class="rating">  
+                                          <% if(rating == 0){ %>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <% }else if(rating > 0 && rating < 1){ %>
+                                        <span class="fa fa-stack"><i class="fa fa-star-half fa-stack-2x" style="color: #FFC501;"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <% } else if(rating === 1){ %>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <% }else if(rating > 1 && rating < 2){ %>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-half fa-stack-2x" style="color: #FFC501;"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <% } else if(rating === 2){ %>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <% }else if(rating > 2 && rating < 3){ %>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-half fa-stack-2x" style="color: #FFC501;"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <% } else if(rating === 3){ %>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <% }else if(rating > 3 && rating < 4){ %>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-half fa-stack-2x" style="color: #FFC501;"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <% } else if(rating === 4){ %>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <% }else if(rating > 4 && rating < 5){ %>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-half fa-stack-2x" style="color: #FFC501;"></i></span>
+                                        <% } else if(rating === 5){ %>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <% } %>
+                                    </div>
+                                            <div class="content_price price">
+                                              <% if(item.discount > 0){ %>
+                                                  
+                                                <span class="price-new product-price"><%- cur %><%= item.price - get_discount(item.price, item.discount) %> </span>&nbsp;&nbsp;
+
+                                                <span class="price-old"><%- cur %><%= item.price %> </span>&nbsp;
+                                                <% } else { %>
+                                                <span class="price-new product-price"><%- cur %><%= item.price %> </span>&nbsp;&nbsp;<% } %>
+
+
+                                            </div>
+                                        </div>
+                                         <!--End item-info -->
+                                         <!--End item-wrap-inner -->
+                                    </div>
+                                     <!--End item-wrap -->
+                                     <% }) %>
+                                </div>
+                            </div>
+                            <!--End extraslider-inner -->
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="module banner-left hidden-xs ">-->
+                <!--    <div class="banner-sidebar banners">-->
+                <!--      <div>-->
+                <!--        <a title="Banner Image" href="#"> -->
+                <!--          <img src="image/catalog/banners/banner-sidebar.jpg" alt="Banner Image"> -->
+                <!--        </a>-->
+                <!--      </div>-->
+                <!--    </div>-->
+                <!--</div>-->
+            </aside>
+            <!--Left Part End -->
+            
+            <!--Middle Part Start-->
+            <div id="content" class="col-md-9 col-sm-8">
+                <div class="products-category">
+                    <h3 class="title-category "><%= cat.title %></h3>
+                    <div class="category-desc">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="banners">
+                                    <div style="background: url(<%= cat.img_url %>); background-position: center; background-size: cover; height: 150px;">
+                                        <a href="#"><br></a>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Filters -->
+                    <div class="product-filter product-filter-top filters-panel">
+                        <div class="row">
+                            <div class="col-md-5 col-sm-3 col-xs-12 view-mode">
+                                
+                                    <div class="list-view">
+                                        <button class="btn btn-default grid active" data-view="grid" data-toggle="tooltip" data-original-title="Grid"><i class="fa fa-th"></i></button>
+                                        <button class="btn btn-default list" data-view="list" data-toggle="tooltip" data-original-title="List"><i class="fa fa-th-list"></i></button>
+                                    </div>
+                        
+                            </div>
+                            <div class="short-by-show form-inline text-right col-md-7 col-sm-9 col-xs-12">
+                                <div class="form-group short-by">
+                                    <label class="control-label" for="input-sort">Sort By:</label>
+                                    <select id="input-sort" class="form-control" onchange="location = this.value;">
+                                        <option value="" selected="selected">Default</option>
+                                        <option value="">Name (A - Z)</option>
+                                        <option value="">Name (Z - A)</option>
+                                        <option value="">Price (Low &gt; High)</option>
+                                        <option value="">Price (High &gt; Low)</option>
+                                        <option value="">Rating (Highest)</option>
+                                        <option value="">Rating (Lowest)</option>
+                                        <option value="">Model (A - Z)</option>
+                                        <option value="">Model (Z - A)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="input-limit">Show:</label>
+                                    <select id="input-limit" class="form-control" onchange="location.href = '/category/<%= cat.slug %>?show=' + this.value;">
+                                        <option value="15" selected="selected">15</option>
+                                        <option value="25">25</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="50">50</option>
+                                        <option value="75">75</option>
+                                        <option value="100">100</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //end Filters -->
+
+                    <!--changed listings-->
+                    <div class="products-list row nopadding-xs so-filter-gird grid">
+                        <% if(parts.length > 0){ %>
+                        <% parts.forEach(part => { %>
+                        <div class="product-layout col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                            <div class="product-item-container item--static">
+                                <div class="left-block">
+                                    <div class="product-image-container second_img">
+                                        <a href="/parts/<%= part.id %>" target="_self" title="Volup tatem accu">
+                                            <img src="<%= part.img_url %>" class="img-1 img-responsive" alt="image1">
+                                            <img src="<%= part.img_url %>" class="img-2 img-responsive" alt="image2">
+                                        </a>
+                                    </div>
+                                    <% if(part.discount > 0){ %><span class="label-product label-sale">-<%= part.discount %>%</span><% } %>
+                                    <!--<span class="label-product label-new">New</span>-->
+                                </div>
+                                <div class="right-block">
+
+                                    <div class="button-group cartinfo--static">
+                                        
+                                        <button type="button" class="wishlist btn-button" title="Add to Wish List" onclick="wishlist.add('60');"><i class="fa fa-heart"></i></button>
+                                        <button type="button" class="addToCart" title="Add to cart" data-id="<%= part.id %>" data-img="<%= part.img_url %>" data-name="<%= part.name %>" data-quantity="1" click="cart.add('<%= part.id %>', '<%= part.img_url %>', '<%= part.name %>', '1');">
+                                            <span>Add to cart </span>   
+                                        </button>                                           
+                                    </div>
+                                    <h4><a href="/parts/<%= part.id %>" title="<%= part.title %>"><%= part.name %></a></h4>
+                                    <% var tot = 0 %>
+                                    
+                                    <% part.reviews.forEach(review => { 
+                                    tot = tot + review.rating 
+                                            }) %>
+                                    <% var rating = part.reviews.length > 0 ? tot / part.reviews.length  : 0; %>
+                                    <div class="rating">  
+                                          <% if(rating == 0){ %>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <% }else if(rating > 0 && rating < 1){ %>
+                                        <span class="fa fa-stack"><i class="fa fa-star-half fa-stack-2x" style="color: #FFC501;"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <% } else if(rating === 1){ %>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <% }else if(rating > 1 && rating < 2){ %>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-half fa-stack-2x" style="color: #FFC501;"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <% } else if(rating === 2){ %>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <% }else if(rating > 2 && rating < 3){ %>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-half fa-stack-2x" style="color: #FFC501;"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <% } else if(rating === 3){ %>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <% }else if(rating > 3 && rating < 4){ %>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-half fa-stack-2x" style="color: #FFC501;"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <% } else if(rating === 4){ %>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                        <% }else if(rating > 4 && rating < 5){ %>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star-half fa-stack-2x" style="color: #FFC501;"></i></span>
+                                        <% } else if(rating === 5){ %>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                        <% } %>
+                                    </div>
+                                    
+                                    <% if(part.discount > 0){ %>
+                                    <div class="price">
+                                    <span class="price-new" itemprop="price"><%- cur %><%= part.price - get_discount(part.price, part.discount) %></span>
+                                    <span class="price-old"><%- cur %><%= part.price %></span>
+                                    </div>
+                                    <% } else { %>
+                                    <div class="price">
+                                      <span class="price"><%- cur %> <%= part.price %></span>
+                                    </div><% } %>
+                                    <div class="description item-desc hidden">
+                                        <p><%- truncate(part.description, 150) %></p>
+                                    </div>
+                                    <div class="list-block hidden">
+                                        <button class="addToCart btn-button" type="button" title="Add to Cart" data-id="<%= part.id %>" data-img="<%= part.img_url %>" data-name="<%= part.name %>" data-quantity="1" clic="cart.add('<%= part.id %>', '<%= part.img_url %>', '<%= part.name %>', '1');"><i class="fa fa-shopping-basket"></i>
+                                        </button>
+                                        <button class="wishlist btn-button" type="button" title="Add to Wish List" onclick="wishlist.add('<%= part.id %>');"><i class="fa fa-heart"></i>
+                                        </button>
+                                    </div>
+                                </div>                                            
+                            </div>
+                        </div>
+                        <% }) %>
+                        <% } else{ %>
+                        <center>
+                            <div class="col-sm-12 mx-auto mt-5 py-4">
+                                <p class="small my-2">No Listing Available</p>
+                                <img src="/img/empty.png" alt="empty" height="250px">
+                            </div>
+                        </center>
+                        <% } %>
+                    </div>
+                    <!--// End Changed listings-->
+                    <!-- Filters -->
+                    <div class="product-filter product-filter-bottom filters-panel">
+                        <div class="row">
+                            <div class="col-sm-6 text-left"></div>
+                            <div class="col-sm-6 text-right">Showing <%= parts.length %> items</div>
+                        </div>
+                    </div>
+                    <!-- //end Filters -->
+                    
+                </div>
+                
+            </div>
+            
+
+            <!--Middle Part End-->
+        </div>
+    </div>
+
+<%- include("footer_auth") %>
